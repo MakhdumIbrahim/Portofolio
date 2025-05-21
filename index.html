@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id" class="">
+<head>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portofolio Pribadi</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .fade-page {
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+    .fade-page.loaded {
+      opacity: 1;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Tambahan gaya light mode lebih cerah */
+    html:not(.dark) body {
+      background-color: #f0f4f8;
+      color: #2d3748;
+    }
+
+    html:not(.dark) .bg-white {
+      background: linear-gradient(145deg, #ffffff, #84c2f8);
+    }
+
+    html:not(.dark) .shadow-lg {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+    }
+
+    html:not(.dark) a {
+      color: #000000;
+    }
+
+    html:not(.dark) a:hover {
+      color: #3358ea;
+    }
+
+    html:not(.dark) .hover\:bg-blue-400:hover {
+      background-color: #4299e1 !important;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      50% { transform: translateX(4px); }
+      75% { transform: translateX(-2px); }
+    }
+    .shake:hover {
+      animation: shake 0.4s ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+    section[id] {
+      scroll-margin-top: 80px;
+    }
+  </style>
+
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500 fade-page">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-50 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md transition-shadow duration-300 shadow-none">
+  <div class="max-w-4xl mx-auto flex items-center justify-between py-4 px-6">
+    <!-- Logo -->
+    <a href="#home" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300">
+      <img src="logosaya.png" alt="Logo Makhdum" class="h-14 w-auto" />
+      <span class="text-xl font-semibold text-gray-900 dark:text-white">Makhdum</span>
+    </a>
+
+    <!-- Menu Desktop -->
+    <div id="nav-links" class="hidden md:flex space-x-8 text-gray-800 dark:text-gray-200 font-medium tracking-wide">
+      <a href="#home" class="relative group">
+        Beranda
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+      </a>
+      <a href="#personal" class="relative group">
+        Data Pribadi
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+      </a>
+      <a href="#about" class="relative group">
+        Tentang
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+      </a>
+      <a href="#contact" class="relative group">
+        Kontak
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+      </a>
+    </div>
+
+    <div class="flex items-center gap-2 md:gap-4">
+      <!-- Tombol Dark Mode -->
+      <button id="darkToggle" aria-label="Toggle Dark Mode" class="p-2 bg-blue-500 dark:bg-blue-400 rounded-full shadow hover:scale-110 transition">
+        <span id="themeIconContainer">
+          <i data-lucide="moon" class="w-5 h-5 text-white"></i>
+        </span>
+      </button>
+
+    <!-- Hamburger Menu Button -->
+    <button id="menuBtn" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+      <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="md:hidden bg-white dark:bg-gray-900 shadow-md hidden px-6 pb-4">
+    <a href="#home" class="block py-2 text-gray-800 dark:text-gray-200 font-medium border-b border-gray-200 dark:border-gray-700">Beranda</a>
+    <a href="#personal" class="block py-2 text-gray-800 dark:text-gray-200 font-medium border-b border-gray-200 dark:border-gray-700">Data Pribadi</a>
+    <a href="#about" class="block py-2 text-gray-800 dark:text-gray-200 font-medium border-b border-gray-200 dark:border-gray-700">Tentang</a>
+    <a href="#contact" class="block py-2 text-gray-800 dark:text-gray-200 font-medium">Kontak</a>
+  </div>
+</nav>
+
+  <!-- Konten Utama -->
+  <section id="home" data-aos="fade-up" class="scroll_mt-20 min-h-screen flex flex-col items-center justify-center px-6 pt-32 text-center space-y-6">
+    <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg hover:scale-105 transition duration-300">
+      <img src="Profil.JPG" alt="Foto Profil Makhdum" class="w-full h-full object-cover" />
+    </div>
+    <h1 id="typingText" class="text-4xl font-bold">
+      Assalamu'alaikum, saya <span class="text-blue-600 dark:text-blue-400">Makhdum</span>
+    </h1>
+
+    <p class="text-lg text-gray-700 dark:text-gray-300">
+      Saya adalah seorang mahasiswa dan web developer pemula.
+    </p>
+    <a href="#contact"
+      class="shake pulse group bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-6 py-2 rounded-full transition transform duration-300 shadow-lg hover:from-blue-600 hover:to-cyan-500 hover:shadow-xl active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400">
+    <span class="inline-block group-hover:scale-105 transition-transform duration-300">Hubungi Saya</span>
+    </a>
+  </section>
+
+  <!-- Data Pribadi -->
+  <section id="personal" data-aos="fade-up" class="scroll_mt-20 max-w-5xl mx-auto px-6 py-20">
+    <h2 class="text-2xl font-semibold mb-10 text-center text-blue-600 dark:text-blue-400 drop-shadow-sm">Data Pribadi</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Card Identitas -->
+    <div class="p-5 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl transform transition duration-500 ease-in-out rounded-2xl bg-white dark:bg-gray-800 bg-white dark:bg-gray-800 ring-1 ring-blue-100 shadow-md dark:ring-gray-700">
+      <h3 class="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-4 flex items-center gap-2">
+        <i data-lucide="user" class="w-6 h-6 text-blue-500 dark:text-blue-300"></i> Identitas
+      </h3>
+      <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3"><i data-lucide="badge-check" class="w-5 h-5 mt-1 text-blue-400"></i> <span><strong>Nama Lengkap :</strong> Muhammad Makhdum Ibrahim</span></li>
+        <li class="flex items-start gap-3"><i data-lucide="calendar-days" class="w-5 h-5 mt-1 text-blue-400"></i> <span><strong>TTL :</strong> Probolinggo, 19 Agustus 2005</span></li>
+        <li class="flex items-start gap-3"><i data-lucide="user-circle" class="w-5 h-5 mt-1 text-blue-400"></i> <span><strong>Jenis Kelamin :</strong> Laki-laki</span></li>
+        <li class="flex items-start gap-3"><i data-lucide="book-open" class="w-5 h-5 mt-1 text-blue-400"></i> <span><strong>Agama :</strong> Islam</span></li>
+      </ul>
+    </div>
+
+    <!-- Card Kontak -->
+    <div class="p-5 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl transform transition duration-500 ease-in-out rounded-2xl bg-white dark:bg-gray-800 bg-white dark:bg-gray-800 ring-1 ring-blue-100 shadow-md dark:ring-gray-700">
+      <h3 class="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-4 flex items-center gap-2">
+        <i data-lucide="phone" class="w-6 h-6 text-blue-500 dark:text-blue-300"></i> Kontak & Alamat
+      </h3>
+      <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3"><i data-lucide="map-pin" class="w-5 h-5 mt-1 text-blue-400"></i> <span><strong>Alamat :</strong> Alasnyiur, Besuk, Probolinggo</span></li>
+        <li class="flex items-start gap-3"><i data-lucide="smartphone" class="w-5 h-5 mt-1 text-blue-400"></i> <span><strong>Nomor HP :</strong> 087816297784</span></li>
+        <li class="flex items-start gap-3"><i data-lucide="mail" class="w-5 h-5 mt-1 text-blue-400"></i> <span><strong>Email :</strong> felisleo1808@gmail.com</span></li>
+        <li class="flex items-start gap-3"><i data-lucide="graduation-cap" class="w-5 h-5 mt-1 text-blue-400"></i> <span><strong>Status :</strong> Mahasiswa</span></li>
+      </ul>
+    </div>
+    </div>
+  </section>
+
+  <!-- Keahlian -->
+  <section id="about" data-aos="fade-up" class="scroll_mt-20 max-w-3xl mx-auto px-6 py-20 text-center">
+    <h2 class="text-2xl font-semibold mb-10 text-blue-600 dark:text-blue-400 drop-shadow-sm">Keahlian</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:-translate-y-2 hover:shadow-2xl transition duration-500 ring-1 ring-blue-200 dark:ring-gray-700">
+        <i data-lucide="code" class="w-8 h-8 text-blue-500 dark:text-blue-300 mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400">Web Development</h3>
+        <p class="text-gray-700 dark:text-gray-300">
+          Saya sedang mempelajari cara membangun website yang dinamis menggunakan HTML, CSS, dan JavaScript.
+        </p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:-translate-y-2 hover:shadow-2xl transition duration-500 ring-1 ring-blue-200 dark:ring-gray-700">
+        <i data-lucide="pen-tool" class="w-8 h-8 text-blue-500 dark:text-blue-300 mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400">UI/UX Design</h3>
+        <p class="text-gray-700 dark:text-gray-300">
+          Saya suka membuat tampilan yang menarik, mudah digunakan, dan nyaman di berbagai perangkat.
+        </p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:-translate-y-2 hover:shadow-2xl transition duration-500 ring-1 ring-blue-200 dark:ring-gray-700">
+        <i data-lucide="layers" class="w-8 h-8 text-blue-500 dark:text-blue-300 mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400">Belajar Framework</h3>
+        <p class="text-gray-700 dark:text-gray-300">
+          Framework seperti Tailwind dan React menjadi target saya berikutnya untuk memperkuat keterampilan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontak -->
+  <section id="contact" data-aos="fade-up" class="scroll_mt-20 text-center py-10">
+  <h2 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">Kontak</h2>
+  <div class="flex justify-center items-center space-x-6 mt-4">
+    <a href="mailto:felisleo1808@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="hover:scale-110 transition">
+      <i data-lucide="mail" class="pulse h-6 text-red-500 dark:text-red-300"></i>
+    </a>
+    <a href="https://instagram.com/felisleo._" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:scale-110 transition">
+      <i data-lucide="instagram" class="pulse h-6 text-pink-500 dark:text-pink-300"></i>
+    </a>
+    <a href="https://wa.me/6287816297784" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="hover:scale-110 transition">
+      <i data-lucide="phone-call" class="pulse h-6 text-green-500 dark:text-green-300"></i>
+    </a>
+    <a href="https://t.me/Makhdum19" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="hover:scale-110 transition">
+      <i data-lucide="send" class="pulse h-6 text-sky-500 dark:text-sky-300"></i>
+    </a>
+    <a href="https://github.com/username" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="hover:scale-110 transition">
+      <i data-lucide="github" class="pulse h-6 text-gray-800 dark:text-gray-200"></i>
+    </a>
+  </div>
+</section>
+
+  <footer class="text-center text-gray-500 dark:text-gray-400 py-6">
+    &copy; 2025 MuhammadMakhdumIbrahim
+  </footer>
+
+  <script>
+  // Toggle Mobile Menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuIcon = document.getElementById('menuIcon');
+  const closeIcon = document.getElementById('closeIcon');
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    menuIcon.classList.toggle('hidden');
+    closeIcon.classList.toggle('hidden');
+  });
+
+  // Sticky Navbar Shadow on Scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 10) {
+      navbar.classList.add('shadow-lg');
+    } else {
+      navbar.classList.remove('shadow-lg');
+    }
+  });
+    const btn = document.getElementById('darkToggle');
+    const html = document.documentElement;
+    const iconContainer = document.getElementById('themeIconContainer');
+
+    function updateIcon() {
+      const isDark = html.classList.contains('dark');
+      iconContainer.innerHTML = '';
+      const newIcon = document.createElement('i');
+      newIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+      newIcon.className = 'w-5 h-5 text-white';
+      iconContainer.appendChild(newIcon);
+      lucide.createIcons();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        html.classList.add('dark');
+      }
+      updateIcon();
+      document.body.classList.add('loaded');
+    });
+
+    btn.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+      updateIcon();
+    });
+    lucide.createIcons();
+  </script>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+      duration: 1000,
+      once: true,
+    });
+    </script>
+  <script>
+      const text = "Assalamu'alaikum, Selamat Datang Di Website Portofolio Saya";
+      const el = document.getElementById('typingText');
+      let i = 0;
+      function type() {
+      el.innerHTML = '<span class="text-blue-600 dark:text-blue-400">' + text.slice(0, i) + '</span>';
+      i++;
+      if (i <= text.length) setTimeout(type, 80);
+    }
+      window.addEventListener('load', type);
+
+      document.querySelector('a[href="#contact"]').addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector('#contact');
+      window.scrollTo({
+      top: target.offsetTop - 60,
+      behavior: 'smooth'
+      });
+    });
+  </script>
+
+</body>
+</html>
